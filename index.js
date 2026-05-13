@@ -12,7 +12,7 @@ connectDB();
 
 // Middleware
 app.use(cors({
-  origin: "http://localhost:5173", // React Vite frontend
+  origin: ["http://localhost:5173", process.env.FRONTEND_URL], // React Vite frontend
   credentials: true,
 }));
 app.use(express.json());
