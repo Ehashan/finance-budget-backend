@@ -1,6 +1,6 @@
 const express = require("express");
-const cors = require("cors");
-const dotenv = require("dotenv");
+const cors    = require("cors");
+const dotenv  = require("dotenv");
 const connectDB = require("./config/db");
 
 dotenv.config();
@@ -17,14 +17,33 @@ app.use(cors({
 }));
 app.use(express.json());
 
-// ── Routes ──────────────────────────────────────────────
+// ── Routes ───────────────────────────────────────────────
 app.use("/api/auth",         require("./routers/authRoutes"));
 app.use("/api/categories",   require("./routers/categoryRoutes"));
 app.use("/api/transactions", require("./routers/transactionRoutes"));
+app.use("/api/budgets",      require("./routers/budgetRoutes"));
+app.use("/api/dashboard",    require("./routers/dashboardRoutes"));
 
 // Health check
 app.get("/", (req, res) => {
-  res.json({ message: "Finance Tracker API is running ✅" });
+  res.json({
+    message: "Finance Tracker API is running",
+    version: "1.0.0",
+    endpoints: [
+      "POST   /api/auth/register",
+      "POST   /api/auth/login",
+      "GET    /api/auth/me",
+      "GET    /api/categories",
+      "POST   /api/categories/seed",
+      "GET    /api/transactions",
+      "POST   /api/transactions",
+      "GET    /api/transactions/summary/monthly",
+      "GET    /api/transactions/summary/by-category",
+      "GET    /api/budgets",
+      "POST   /api/budgets",
+      "GET    /api/dashboard",
+    ],
+  });
 });
 
 // 404 handler
@@ -40,5 +59,5 @@ app.use((err, req, res, next) => {
 
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
+  console.log(`Server running on http://localhost:${PORT}`);
 });
