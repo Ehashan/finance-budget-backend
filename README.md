@@ -89,7 +89,7 @@ git clone https://github.com/your-username/finance-budget-backend.git && cd fina
 Create a `.env` file in the project root and add:
 
 ```env
-PORT=5000
+PORT=5001
 MONGO_URI=mongodb://localhost:27017/finance_budget
 JWT_SECRET=your_secret_key
 ```
